@@ -1,0 +1,17 @@
+templates:
+  quick-recon:
+    desc: "Quick recon: nmap, subfinder, gobuster"
+    commands:
+      - "nmap -sC -sV -Pn -oN {out}/nmap_{target}.txt {target}"
+      - "subfinder -d {target} -o {out}/subfinder_{target}.txt || true"
+      - "gobuster dir -u http://{target}/ -w /usr/share/wordlists/dirb/common.txt -o {out}/gobuster_{target}.txt || true"
+  web-suite:
+    desc: "Web scanning suite"
+    commands:
+      - "nikto -h http://{target} -output {out}/nikto_{target}.txt || true"
+      - "whatweb {target} -v > {out}/whatweb_{target}.txt || true"
+  test:
+    desc: "Quick test template"
+    commands:
+      - "echo hello {target} > {out}/hello.txt"
+      - "ls -la {out} > {out}/ls.txt"
